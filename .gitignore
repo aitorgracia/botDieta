@@ -1,1 +1,25 @@
+# Entorno virtual de Python
+venv/
+.venv/
+env/
+
+# Base de datos local (evita subir tus pesos personales)
+dieta.db
+*.db
+
+# Archivos de configuración con Tokens/Passwords secretos
 .env
+
+# Archivos de registro y logs
+bot.log
+*.log
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Fotos temporales del collage (si por algún error se quedaran en disco)
+frente.jpg
+perfil.jpg
+espalda.jpg
+review_semanal.jpg

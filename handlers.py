@@ -194,9 +194,9 @@ async def recordatorio_diario(context: ContextTypes.DEFAULT_TYPE):
         )
 
     if es_domingo:
-    await context.bot.send_message(
-        chat_id=context.job.chat_id,
-        text="📸 *¡Dia de fotos!*, envia las 3 fotos despues del peso para hacer el collage",
-        parse_mode="Markdown"
-    )
+    	await context.bot.send_message(
+        	chat_id=context.job.chat_id,
+        	text="📸 *¡Dia de fotos!*, envia las 3 fotos despues del peso para hacer el collage",
+        	parse_mode="Markdown"
+    	)
     

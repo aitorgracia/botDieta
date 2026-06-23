@@ -30,6 +30,7 @@ from handlers import (
     comando_resetfotos,
     recordatorio_diario,
     comando_help,
+    comando_ping,
 )
 
 # --- LOGGING AUTOMÁTICO (Rotación diaria a medianoche) ---
@@ -80,6 +81,7 @@ def main():
     app.add_handler(CommandHandler("backup",     comando_backup))
     app.add_handler(CommandHandler("resetfotos", comando_resetfotos))
     app.add_handler(CommandHandler("help",       comando_help))
+    app.add_handler(CommandHandler("ping",       comando_ping))
 
     # Fotos y texto
     app.add_handler(MessageHandler(filters.PHOTO, recibir_foto_handler))

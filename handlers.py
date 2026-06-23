@@ -167,9 +167,16 @@ async def comando_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🗑️ /borrar — Elimina el último peso registrado\n"
         "📉 /historico — Medias de las últimas 12 semanas (auto-rellenable)\n"
         "💾 /backup — Recibe el archivo dieta.db\n"
-        "🗑️ /resetfotos — Limpia la cola de fotos temporales"
+        "🗑️ /resetfotos — Limpia la cola de fotos temporales\n"
+        "🏓 /ping — Comprueba el sistema de envio de mensajes\n"
     )
 
+@solo_yo
+async def comando_ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(
+        chat_id=update.effective_user.id,
+        text="🏓 Pong! El bot puede enviarte mensajes."
+    )
 
 # --- TAREAS DE CONTEXTO / CRON ---
 

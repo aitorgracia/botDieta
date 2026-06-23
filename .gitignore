@@ -12,7 +12,7 @@ dieta.db
 
 # Archivos de registro y logs
 bot.log
-*.log
+*.log*
 
 # Caché de Python
 __pycache__/

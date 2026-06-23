@@ -181,13 +181,19 @@ async def comando_ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # --- TAREAS DE CONTEXTO / CRON ---
 
 async def recordatorio_diario(context: ContextTypes.DEFAULT_TYPE):
-    hoy = datetime.now(TZ_MADRID).strftime("%Y-%m-%d")
+    hoy = date.today().strftime("%Y-%m-%d")
     with db.get_conn() as conn:
-        ya_pesado_hoy = conn.execute("SELECT 1 FROM pesos WHERE fecha = ?", (hoy,)).fetchone()
-    
-    if not ya_pesado_hoy:
+        ya_pesado = conn.execute(
+            "SELECT 1 FROM pesos WHERE fecha = ?", (hoy,)
+        ).fetchone()
+    if not ya_pesado:
         await context.bot.send_message(
-            chat_id=ALLOWED_USER_ID,
-            text="⏰ *¡Recuerda pesarte hoy!*\nEnvíame el número en cuanto te bajes de la báscula.",
-            parse_mode="Markdown"
+            chat_id=context.job.chat_id,  # <- leerlo del contexto
+            text="⏰ ¡Recuerda pesarte hoy! Envíame el número cuando puedas."
         )
+
+async def test_contexto(context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_message(
+        chat_id=context.job.chat_id,  # <- leerlo del contexto
+        text="⏰ Contexto funciona."
+    )

@@ -28,9 +28,10 @@ from handlers import (
     comando_historico,
     comando_backup,
     comando_resetfotos,
-    recordatorio_diario,
     comando_help,
     comando_ping,
+    test_contexto,
+    recordatorio_diario,
 )
 
 # --- LOGGING AUTOMÁTICO (Rotación diaria a medianoche) ---
@@ -92,7 +93,17 @@ def main():
         app.job_queue.run_daily(
             recordatorio_diario,
             time=time(hour=7, minute=5, tzinfo=pytz.timezone("Europe/Madrid")),
-            name="recordatorio_diario"
+            name="recordatorio_diario",
+            chat_id=allowed_id  # <- pasarlo aquí directamente
+        )
+
+    # Test contexto
+    if allowed_id:
+        app.job_queue.run_daily(
+            test_contexto,
+            time=time(hour=9, minute=20, tzinfo=pytz.timezone("Europe/Madrid")),
+            name="test_contexto",
+            chat_id=allowed_id  # <- pasarlo aquí directamente
         )
         logger.info(f"Recordatorio diario activado para user_id={allowed_id}")
 

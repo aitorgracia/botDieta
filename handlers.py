@@ -182,12 +182,21 @@ async def comando_ping(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def recordatorio_diario(context: ContextTypes.DEFAULT_TYPE):
     hoy = datetime.now(TZ_MADRID).strftime("%Y-%m-%d")
+    es_domingo = hoy.weekday() == 6
     with db.get_conn() as conn:
         ya_pesado_hoy = conn.execute("SELECT 1 FROM pesos WHERE fecha = ?", (hoy,)).fetchone()
     
     if not ya_pesado_hoy:
         await context.bot.send_message(
-            chat_id=ALLOWED_USER_ID,
+            chat_id=context.job.chat_id,
             text="⏰ *¡Recuerda pesarte hoy!*\nEnvíame el número en cuanto te bajes de la báscula.",
             parse_mode="Markdown"
         )
+
+    if es_domingo:
+    await context.bot.send_message(
+        chat_id=context.job.chat_id,
+        text="📸 *¡Dia de fotos!*, envia las 3 fotos despues del peso para hacer el collage",
+        parse_mode="Markdown"
+    )
+    

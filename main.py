@@ -92,7 +92,8 @@ def main():
         app.job_queue.run_daily(
             recordatorio_diario,
             time=time(hour=7, minute=5, tzinfo=pytz.timezone("Europe/Madrid")),
-            name="recordatorio_diario"
+            name="recordatorio_diario",
+            chat_id=allowed_id
         )
         logger.info(f"Recordatorio diario activado para user_id={allowed_id}")
 

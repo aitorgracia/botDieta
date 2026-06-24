@@ -200,4 +200,3 @@ async def recordatorio_diario(context: ContextTypes.DEFAULT_TYPE):
             text="📸 *¡Dia de fotos!*, envia las 3 fotos despues del peso para hacer el collage",
             parse_mode="Markdown"
         )
-    

@@ -43,6 +43,7 @@ def guardar_peso(peso: float):
     ahora = datetime.now(TZ_MADRID)
     fecha_hoy = ahora.strftime("%Y-%m-%d")
     anio_actual, semana_actual, _ = ahora.isocalendar()
+    creado_en = ahora.strftime("%Y-%m-%d %H:%M:%S")
     
     # 1. Procesar cierres antiguos y rellenar huecos vacíos
     cerrar_semanas_pendientes(anio_actual, semana_actual)
@@ -50,10 +51,10 @@ def guardar_peso(peso: float):
     # 2. Guardar el peso en la semana actual
     with get_conn() as conn:
         conn.execute(
-            "INSERT INTO pesos (fecha, semana, anio, peso) VALUES (?, ?, ?, ?)",
-            (fecha_hoy, semana_actual, anio_actual, peso)
+            "INSERT INTO pesos (fecha, semana, anio, peso, creado_en) VALUES (?, ?, ?, ?, ?)",
+            (fecha_hoy, semana_actual, anio_actual, peso, creado_en)
         )
-    logger.info(f"Peso guardado: {peso} kg — Semana {semana_actual} ({fecha_hoy} Madrid)")
+    logger.info(f"Peso guardado: {peso} kg — Semana {semana_actual} ({creado_en} Madrid)")
 
 
 def cerrar_semanas_pendientes(anio_actual: int, semana_actual: int):
